@@ -7,3 +7,4 @@ export 'response.dart';
 export 'logger.dart';
 export 'types.dart';
 export 'multipart.dart';
+export 'endpoint.dart';
