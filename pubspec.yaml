@@ -1,7 +1,7 @@
 name: rester
 description: Help to use http.
 version: 0.0.1
-homepage:
+repository: https://github.com/oh-jinsu/rester
 
 environment:
   sdk: '>=2.19.4 <3.0.0'
