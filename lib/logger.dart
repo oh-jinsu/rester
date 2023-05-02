@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
+import 'package:rester/response.dart';
 import 'package:rester/types.dart';
 
 String _prettyJson(Object? value) {
@@ -31,7 +32,7 @@ void _logResponse(Uri url, String? method, Response response) {
     return;
   }
 
-  log("Response ${response.statusCode} ${_getRequestInfo(url, method)}${response.body.isEmpty ? "" : "\nBody: ${_prettyJson(response.body)}"}");
+  log("Response ${response.statusCode} ${_getRequestInfo(url, method)}${response.body.isEmpty ? "" : "\nBody: ${_prettyJson(response.json)}"}");
 }
 
 Rester Function(Rester rester) withLog([String? method]) {
