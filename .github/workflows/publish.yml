@@ -1,0 +1,26 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+  
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    container:
+      image: google/dart:latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure pub credentials
+        run: |
+          mkdir -p ~/.pub-cache 
+          cat <<EOF > ~/.pub-cache/credentials.json
+          ${{ secrets.PUB_CREDENTIALS }}
+          EOF
+      
+      - name: Publish
+        run: dart pub publish -f
