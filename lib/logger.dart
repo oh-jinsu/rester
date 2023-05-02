@@ -5,12 +5,16 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:rester/types.dart';
 
-String _prettyJson(Object? object) {
-  return const JsonEncoder.withIndent(" ").convert(object);
+String _prettyJson(Object? value) {
+  if (value is String) {
+    return const JsonEncoder.withIndent(" ").convert(jsonDecode(value));
+  }
+
+  return const JsonEncoder.withIndent(" ").convert(value);
 }
 
 String _getRequestInfo(Uri url, String? method) {
-  return "$url${method != null ? " ($method)" : ""}";
+  return "${url.path}${method != null ? " ($method)" : ""}";
 }
 
 void _logRequest(Uri url, String? method,
@@ -27,7 +31,7 @@ void _logResponse(Uri url, String? method, Response response) {
     return;
   }
 
-  log("Response ${response.statusCode}${_getRequestInfo(url, method)}${response.body.isEmpty ? "" : "\n${_prettyJson(response.body)}"}");
+  log("Response ${response.statusCode} ${_getRequestInfo(url, method)}${response.body.isEmpty ? "" : "\nBody: ${_prettyJson(response.body)}"}");
 }
 
 Rester Function(Rester rester) withLog([String? method]) {
