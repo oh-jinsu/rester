@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
-
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
+import 'package:rester/report.dart';
 import 'package:rester/response.dart';
 import 'package:rester/types.dart';
 
@@ -20,19 +18,13 @@ String _getRequestInfo(Uri url, String? method) {
 
 void _logRequest(Uri url, String? method,
     {Map<String, String>? headers, Object? body}) {
-  if (!kDebugMode) {
-    return;
-  }
-
-  log("Request ${_getRequestInfo(url, method)}${headers?.isNotEmpty == true ? "\nHeaders: ${_prettyJson(headers)}" : ""}${body != null ? "\nBody: ${_prettyJson(body)}" : ""}");
+  report(
+      "Request ${_getRequestInfo(url, method)}${headers?.isNotEmpty == true ? "\nHeaders: ${_prettyJson(headers)}" : ""}${body != null ? "\nBody: ${_prettyJson(body)}" : ""}");
 }
 
 void _logResponse(Uri url, String? method, Response response) {
-  if (!kDebugMode) {
-    return;
-  }
-
-  log("Response ${response.statusCode} ${_getRequestInfo(url, method)}${response.body.isEmpty ? "" : "\nBody: ${_prettyJson(response.json)}"}");
+  report(
+      "Response ${response.statusCode} ${_getRequestInfo(url, method)}${response.body.isEmpty ? "" : "\nBody: ${_prettyJson(response.json)}"}");
 }
 
 Rester Function(Rester rester) withLog([String? method]) {
