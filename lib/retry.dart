@@ -1,13 +1,10 @@
-import "dart:developer";
-
-import "package:flutter/foundation.dart";
 import "package:rester/report.dart";
 import 'package:rester/types.dart';
 
 Rester withRetry(
   Rester rester, {
   int count = 5,
-  Duration duration = const Duration(seconds: 1),
+  Duration duration = const Duration(seconds: 5),
   Iterable<int> statusCodes = const [429, 500, 501, 502, 503],
 }) {
   return (url, {headers, body, encoding}) async {
